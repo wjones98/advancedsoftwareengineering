@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <functional>
 namespace Containers
 {
 	template <class K, class I>
@@ -28,11 +29,12 @@ namespace Containers
 		//Move assignment operator
 		Dictionary& operator=(Dictionary&&);
 
+		//Higher Order remove if function
+		void removeIf(std::function<bool(Key)>);
+
 		bool insert(Key, Item);
 		Item* lookup(Key);
 		bool remove(Key);
-
-		void displayList();
 
 	private:
 		struct Node {
@@ -48,8 +50,7 @@ namespace Containers
 		static bool insertRec(Key, Item, Node*&);
 		static Item* lookupRec(Key, Node*);
 		static bool removeRec(Key, Node*&);
-
-		static void displayListRec(Node*&);
+		static void removeIfRec(std::function<bool(Key)>, Node*&);
 
 		Node* deepCopy(Node*);
 		static Node* deepCopyRec(Node* dictN, Node*& n);
@@ -208,6 +209,7 @@ namespace Containers
 					Node* toDelete = n;
 					n = n->nextNode;
 					delete toDelete;
+					toDelete = nullptr;
 				}
 				return true;
 			}
@@ -218,21 +220,29 @@ namespace Containers
 		return false;
 	}
 
-	//USED FOR TESTING - DO NOT FORGET TO REMOVE
+
 	template <class Key, class Item>
-	void Dictionary<Key, Item>::displayList() {
-		displayListRec(this->root);
+	void Dictionary<Key, Item>::removeIf(std::function<bool(Key)> p) {
+		removeIfRec(p, this->root);
 	}
 
-	//USED FOR TESTING - DO NOT FORGET TO REMOVE
-	template <class Key, class Item>
-	void Dictionary<Key, Item>::displayListRec(Node*& n) {
-		if (!isPresent(n)) {
-			std::cout << "nullptr" << std::endl;
-		}
-		else {
-			std::cout << "Key=" << n->key << " : Item=" << n->item << std::endl;
-			displayListRec(n->nextNode);
+	template<class Key, class Item>
+	void Dictionary<Key, Item>::removeIfRec(std::function<bool(Key)> p, Node*& n) {
+		if (isPresent(n)) {
+			if (p(n->key)) {
+				if (!isPresent(n->nextNode)) {
+					delete n;
+					n = nullptr;
+				}
+				else {
+					Node* toDelete = n;
+					n = n->nextNode;
+					delete toDelete;
+					toDelete = nullptr;
+				}
+			}
+			
+			removeIfRec(p, n->nextNode);
 		}
 	}
 }

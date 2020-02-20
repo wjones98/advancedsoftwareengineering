@@ -4,33 +4,21 @@
 #include <iostream>
 #include "dictionary.h"
 
-
 int main()
 {
+	using Dict = Containers::Dictionary<char, std::pair<int, int>>;
 
-	Containers::Dictionary<std::string, std::string> dict;
-	dict.insert("WAJ", "Will");
-	dict.insert("PaPaLingLing", "Usama");
-	std::cout << *dict.lookup("WAJ") << std::endl;
-	dict.remove("WAJ");
-	std::cout << dict.lookup("WAJ") << std::endl;
-	dict.displayList();
-	//dict.displayList();
-	//std::cout << "------------------------------------------------------------------" << std::endl;
-	//
-	//Containers::Dictionary<std::string, std::string> dict2;
-	//dict2.insert("mixer", "Lydia");
-	//dict2.insert("t=t", "Borth");
-	//dict2.displayList();
-	//std::cout << "------------------------------------------------------------------" << std::endl;
+	Dict::Key  key = 'A';
+	Dict::Item item = std::pair<int, int>(0, 1);
 
-	//dict = std::move(dict2);
+	Dict dict;
+	bool insertSuccess = dict.insert(key, item);
+	Dict::Item* itemPtr = dict.lookup(key);
+	bool removeSuccess = dict.remove(key);
 
-	//dict.displayList();
-	//std::cout << "------------------------------------------------------------------" << std::endl;
-	//dict2.insert("hello", "there");
-	//dict2.displayList();
+	return insertSuccess && removeSuccess && itemPtr != nullptr;
 }
+
 
 
 
