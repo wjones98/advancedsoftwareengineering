@@ -42,5 +42,6 @@
 *.tlog
 /Debug
 /.vs
-
+/main
+/proj
 *.vcxproj.user
