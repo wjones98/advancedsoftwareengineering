@@ -4,6 +4,12 @@
 #include <iostream>
 #include "dictionary.h"
 
+bool isThree(std::string k) {
+	if (k.length() == 3) {
+		return true;
+	}
+	return false;
+}
 
 int main()
 {
@@ -11,26 +17,12 @@ int main()
 	Containers::Dictionary<std::string, std::string> dict;
 	dict.insert("WAJ", "Will");
 	dict.insert("PaPaLingLing", "Usama");
-	std::cout << *dict.lookup("WAJ") << std::endl;
-	dict.remove("WAJ");
-	std::cout << dict.lookup("WAJ") << std::endl;
+	dict.insert("Ketamine", "Lydia");
 	dict.displayList();
-	//dict.displayList();
-	//std::cout << "------------------------------------------------------------------" << std::endl;
-	//
-	//Containers::Dictionary<std::string, std::string> dict2;
-	//dict2.insert("mixer", "Lydia");
-	//dict2.insert("t=t", "Borth");
-	//dict2.displayList();
-	//std::cout << "------------------------------------------------------------------" << std::endl;
-
-	//dict = std::move(dict2);
-
-	//dict.displayList();
-	//std::cout << "------------------------------------------------------------------" << std::endl;
-	//dict2.insert("hello", "there");
-	//dict2.displayList();
+	dict.removeIf(isThree);
+	dict.displayList();
 }
+
 
 
 

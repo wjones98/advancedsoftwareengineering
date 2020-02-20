@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <functional>
 namespace Containers
 {
 	template <class K, class I>
@@ -28,6 +29,9 @@ namespace Containers
 		//Move assignment operator
 		Dictionary& operator=(Dictionary&&);
 
+		//Higher Order remove if function
+		void removeIf(std::function<bool(Key)>);
+
 		bool insert(Key, Item);
 		Item* lookup(Key);
 		bool remove(Key);
@@ -48,6 +52,7 @@ namespace Containers
 		static bool insertRec(Key, Item, Node*&);
 		static Item* lookupRec(Key, Node*);
 		static bool removeRec(Key, Node*&);
+		static void removeIfRec(std::function<bool(Key)>, Node*&);
 
 		static void displayListRec(Node*&);
 
@@ -231,8 +236,31 @@ namespace Containers
 			std::cout << "nullptr" << std::endl;
 		}
 		else {
-			std::cout << "Key=" << n->key << " : Item=" << n->item << std::endl;
+			std::cout << n->key << " : " << n->item << std::endl;
 			displayListRec(n->nextNode);
+		}
+	}
+
+	template <class Key, class Item>
+	void Dictionary<Key, Item>::removeIf(std::function<bool(Key)> f) {
+		removeIfRec(f, this->root);
+	}
+
+	template<class Key, class Item>
+	void Dictionary<Key, Item>::removeIfRec(std::function<bool(Key)> f, Node*& n) {
+		if (isPresent(n)) {
+			if (f(n->key)) {
+				if (!isPresent(n->nextNode)) {
+					delete n;
+					n = nullptr;
+				}
+				else {
+					Node* toDelete = n;
+					n = n->nextNode;
+					delete toDelete;
+				}
+			}
+			removeIfRec(f, n->nextNode);
 		}
 	}
 }
