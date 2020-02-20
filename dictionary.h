@@ -209,6 +209,7 @@ namespace Containers
 					Node* toDelete = n;
 					n = n->nextNode;
 					delete toDelete;
+					toDelete = nullptr;
 				}
 				return true;
 			}
@@ -237,6 +238,7 @@ namespace Containers
 					Node* toDelete = n;
 					n = n->nextNode;
 					delete toDelete;
+					toDelete = nullptr;
 				}
 			}
 			
