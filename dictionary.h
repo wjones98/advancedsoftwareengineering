@@ -36,8 +36,6 @@ namespace Containers
 		Item* lookup(Key);
 		bool remove(Key);
 
-		void displayList();
-
 	private:
 		struct Node {
 			Key key;
@@ -53,8 +51,6 @@ namespace Containers
 		static Item* lookupRec(Key, Node*);
 		static bool removeRec(Key, Node*&);
 		static void removeIfRec(std::function<bool(Key)>, Node*&);
-
-		static void displayListRec(Node*&);
 
 		Node* deepCopy(Node*);
 		static Node* deepCopyRec(Node* dictN, Node*& n);
@@ -223,23 +219,6 @@ namespace Containers
 		return false;
 	}
 
-	//USED FOR TESTING - DO NOT FORGET TO REMOVE
-	template <class Key, class Item>
-	void Dictionary<Key, Item>::displayList() {
-		displayListRec(this->root);
-	}
-
-	//USED FOR TESTING - DO NOT FORGET TO REMOVE
-	template <class Key, class Item>
-	void Dictionary<Key, Item>::displayListRec(Node*& n) {
-		if (!isPresent(n)) {
-			std::cout << "nullptr" << std::endl;
-		}
-		else {
-			std::cout << n->key << " : " << n->item << std::endl;
-			displayListRec(n->nextNode);
-		}
-	}
 
 	template <class Key, class Item>
 	void Dictionary<Key, Item>::removeIf(std::function<bool(Key)> f) {
@@ -260,6 +239,7 @@ namespace Containers
 					delete toDelete;
 				}
 			}
+			
 			removeIfRec(f, n->nextNode);
 		}
 	}

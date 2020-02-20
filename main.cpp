@@ -4,23 +4,9 @@
 #include <iostream>
 #include "dictionary.h"
 
-bool isThree(std::string k) {
-	if (k.length() == 3) {
-		return true;
-	}
-	return false;
-}
-
 int main()
 {
 
-	Containers::Dictionary<std::string, std::string> dict;
-	dict.insert("WAJ", "Will");
-	dict.insert("PaPaLingLing", "Usama");
-	dict.insert("Ketamine", "Lydia");
-	dict.displayList();
-	dict.removeIf(isThree);
-	dict.displayList();
 }
 
 
