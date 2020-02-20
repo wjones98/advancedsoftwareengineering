@@ -221,14 +221,14 @@ namespace Containers
 
 
 	template <class Key, class Item>
-	void Dictionary<Key, Item>::removeIf(std::function<bool(Key)> f) {
-		removeIfRec(f, this->root);
+	void Dictionary<Key, Item>::removeIf(std::function<bool(Key)> p) {
+		removeIfRec(p, this->root);
 	}
 
 	template<class Key, class Item>
-	void Dictionary<Key, Item>::removeIfRec(std::function<bool(Key)> f, Node*& n) {
+	void Dictionary<Key, Item>::removeIfRec(std::function<bool(Key)> p, Node*& n) {
 		if (isPresent(n)) {
-			if (f(n->key)) {
+			if (p(n->key)) {
 				if (!isPresent(n->nextNode)) {
 					delete n;
 					n = nullptr;
@@ -240,7 +240,7 @@ namespace Containers
 				}
 			}
 			
-			removeIfRec(f, n->nextNode);
+			removeIfRec(p, n->nextNode);
 		}
 	}
 }
