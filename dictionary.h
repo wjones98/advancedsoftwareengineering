@@ -117,10 +117,8 @@ namespace Containers
 	//move constructor
 	template <class Key, class Item>
 	Dictionary<Key, Item>::Dictionary(Dictionary&& dict) {
-		if (this != &dict) {
-			this->root = dict.root;
-			dict.root = nullptr;
-		}
+		this->root = dict.root;
+		dict.root = nullptr;
 	}
 
 	//Move assignment operator
@@ -241,7 +239,6 @@ namespace Containers
 					toDelete = nullptr;
 				}
 			}
-			
 			removeIfRec(p, n->nextNode);
 		}
 	}
