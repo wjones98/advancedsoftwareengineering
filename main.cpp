@@ -2,21 +2,20 @@
 //
 
 #include <iostream>
+
 #include "dictionary.h"
+#include "proj/main/BasketOfNames.h"
 
 int main()
 {
-	using Dict = Containers::Dictionary<char, std::pair<int, int>>;
+	std::string filepath = "C:\\Users\\wajon\\OneDrive\\Documents\\GitHub\\advancedsoftwareengineering\\input-papers-20.txt";
 
-	Dict::Key  key = 'A';
-	Dict::Item item = std::pair<int, int>(0, 1);
+	BasketOfNames basket(filepath);
 
-	Dict dict;
-	bool insertSuccess = dict.insert(key, item);
-	Dict::Item* itemPtr = dict.lookup(key);
-	bool removeSuccess = dict.remove(key);
+	
 
-	return insertSuccess && removeSuccess && itemPtr != nullptr;
+	std::string yeet;
+	std::cin >> yeet;
 }
 
 
