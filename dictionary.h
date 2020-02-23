@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include <iostream>
 #include <functional>
 namespace Containers
 {
