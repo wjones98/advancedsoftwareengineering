@@ -5,17 +5,20 @@
 
 #include "dictionary.h"
 #include "proj/main/BasketOfNames.h"
+#include "proj/main/BasketOfNamesAlt.h"
 
-int main()
+int main(std::string filepath)
 {
-	std::string filepath = "C:\\Users\\wajon\\OneDrive\\Documents\\GitHub\\advancedsoftwareengineering\\input-papers-20.txt";
+	//std::string filepath = "C:\\Users\\wajon\\OneDrive\\Documents\\GitHub\\advancedsoftwareengineering\\input-papers-20.txt";
 
-	BasketOfNames basket(filepath);
-
+	BasketOfNamesAlt basket(filepath);
+	basket.OrderList();
 	
+	for (std::string i : basket.ordered) {
+		std::cout << i << std::endl;
+	}
 
-	std::string yeet;
-	std::cin >> yeet;
+	return 0;
 }
 
 
