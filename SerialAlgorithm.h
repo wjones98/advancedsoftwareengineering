@@ -1,3 +1,4 @@
+/*
 #pragma once
 #include <string>
 #include <fstream>
@@ -28,3 +29,4 @@ public:
 	listPairs b;
 	listPairs f;
 };
+*/

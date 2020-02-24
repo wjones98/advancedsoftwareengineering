@@ -4,11 +4,13 @@
 #include <iostream>
 
 #include "dictionary.h"
-#include "proj/main/BasketOfNames.h"
-#include "proj/main/BasketOfNamesAlt.h"
+#include "C:\Users\wajon\OneDrive\Documents\GitHub\advancedsoftwareengineering\SoftwareEngineeringProj\SerialAlgorithm2.h"
 
 int main()
 {
-	
+	std::string filepath = "C:\\Users\\wajon\\OneDrive\\Documents\\GitHub\\advancedsoftwareengineering\\input-papers-20.txt";
+	SerialAlgorithm yeet(filepath);
+	yeet.GetLastNames();
+	yeet.SortByT();
 	return 0;
 }

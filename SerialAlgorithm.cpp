@@ -1,3 +1,4 @@
+/*
 #include "SerialAlgorithm.h"
 
 //http://www.cplusplus.com/reference/list/list/sort/
@@ -26,6 +27,19 @@ bool SortBySecond(const std::pair<std::string, std::string>& first, const std::p
 	return (first.second.length() < second.second.length());
 }
 
+
+//http://www.cplusplus.com/reference/list/list/sort/
+bool SortBySecondInt(const std::pair<int, std::string>& first, const std::pair<int, std::string>& second)
+{
+	unsigned int i = 0;
+	while ((i < first.second.length()) && (i < second.second.length()))
+	{
+		if (tolower(first.second[i]) < tolower(second.second[i])) return true;
+		else if (tolower(first.second[i]) > tolower(second.second[i])) return false;
+		++i;
+	}
+	return (first.second.length() < second.second.length());
+}
 
 SerialAlgorithm::SerialAlgorithm(std::string filepath) {
 	std::ifstream file;
@@ -121,7 +135,7 @@ void SerialAlgorithm::SortByT() {
 	SerialAlgorithm::a = SerialAlgorithm::f;
 	//(x, x1)
 	SerialAlgorithm::b = SerialAlgorithm::a;
-
+	SerialAlgorithm::g = SerialAlgorithm::finalOutput;
 	a.sort(SortByFirst);
 	b.sort(SortBySecond);
 
@@ -132,6 +146,7 @@ void SerialAlgorithm::SortByT() {
 
 	listPairs::iterator iterA = SerialAlgorithm::a.begin();
 	listPairs::iterator iterB = SerialAlgorithm::b.begin();
+	
 	std::list<std::pair<int, std::string >>::iterator iterG = SerialAlgorithm::g.begin();
 	unsigned int t = 1;
 	int count = 0;
@@ -151,20 +166,20 @@ void SerialAlgorithm::SortByT() {
 				iterA++;
 				iterB++;
 			}
-			if (namePairB.second == namePairG.second) {
+			else if (namePairB.second == namePairG.second) {
 				g1.push_back(std::make_pair(namePairG.first - t, namePairB.first));
 				iterA++;
 				iterG++;
 			}
-			if (namePairB.second > namePairG.second) {
+			else if (namePairB.second > namePairG.second) {
 				iterG++;
 			}
-			if (namePairB.second > namePairA.first) {
+			else if (namePairB.second > namePairA.first) {
 				iterB++;
 			}
 		}
 
-		g1.sort(SortBySecond);
+		g1.sort(SortBySecondInt);
 		for (auto pair : g) {
 			g1.push_back(pair);
 		}
@@ -178,5 +193,5 @@ void SerialAlgorithm::SortByT() {
 
 }
 
-
+*/
 
