@@ -27,6 +27,19 @@ bool SortBySecond(const std::pair<std::string, std::string>& first, const std::p
 	return (first.second.length() < second.second.length());
 }
 
+//http://www.cplusplus.com/reference/list/list/sort/
+bool SortBySecondInt(const std::pair<int, std::string>& first, const std::pair<int, std::string>& second)
+{
+	unsigned int i = 0;
+	while ((i < first.second.length()) && (i < second.second.length()))
+	{
+		if (tolower(first.second[i]) < tolower(second.second[i])) return true;
+		else if (tolower(first.second[i]) > tolower(second.second[i])) return false;
+		++i;
+	}
+	return (first.second.length() < second.second.length());
+}
+
 
 //http://www.cplusplus.com/reference/list/list/sort/
 bool SortBySecondInt(const std::pair<int, std::string>& first, const std::pair<int, std::string>& second)
@@ -100,7 +113,7 @@ void SerialAlgorithm::GetLastNames() {
 		std::pair<std::string, std::string>& namePairA = *iterA;
 		std::pair<std::string, std::string>& namePairB = *iterB;
 		if (namePairA.first == namePairB.second) {
-			SerialAlgorithm::f.push_back(std::make_pair(namePairA.first, namePairB.first));
+			SerialAlgorithm::f.push_back(std::make_pair(namePairB.first, namePairA.second));
 			std::cout << namePairA.first << " : " << namePairB.first << std::endl;
 			iterA++;
 			iterB++;
@@ -132,15 +145,18 @@ void SerialAlgorithm::GetLastNames() {
 
 void SerialAlgorithm::SortByT() {
 	//(z, z1)
-	SerialAlgorithm::a = SerialAlgorithm::f;
+	a = f;
 	//(x, x1)
 	SerialAlgorithm::b = SerialAlgorithm::a;
 	SerialAlgorithm::g = SerialAlgorithm::finalOutput;
+	b = a;
+
 	a.sort(SortByFirst);
 	b.sort(SortBySecond);
-
+	g.sort(SortBySecondInt);
 	DisplayJoin(a, b);
-	
+
+	g = finalOutput;
 	std::list<std::pair<int, std::string >> g1;
 	listPairs b1;
 
@@ -156,20 +172,37 @@ void SerialAlgorithm::SortByT() {
 		iterG = SerialAlgorithm::g.begin();
 
 		while (iterB != SerialAlgorithm::b.end()) {
+	listPairs::iterator iterA = a.begin();
+	listPairs::iterator iterB = b.begin();
+	std::list<std::pair<int, std::string >>::iterator iterG = g.begin();
+
+	signed int t = 1;
+	while (t < namePairs.size()) {
+		t = t * 2;
+		iterA = a.begin();
+		iterB = b.begin();
+		iterG = g.begin();
+
+		while (std::distance(g.begin(), iterG) != g.size() - 1) {
 			std::pair<std::string, std::string> & namePairA = *iterA;
 			std::pair<std::string, std::string> & namePairB = *iterB;
 			//(y,y1)
-			std::pair<int, std::string> & namePairG = *iterG;
-
+			std::pair<int, std::string>& namePairG = *iterG;
+			std::cout << "namePairB : " << namePairB.second << " : " << "namePairG   : " << namePairG.second << std::endl;
 			if (namePairB.second == namePairA.first) {
 				b1.push_back(std::make_pair(namePairB.first, namePairA.second));
-				iterA++;
-				iterB++;
+				std::cout << namePairB.first << " : " << namePairA.second << std::endl;
+				++iterA;
+				++iterB;
 			}
 			else if (namePairB.second == namePairG.second) {
 				g1.push_back(std::make_pair(namePairG.first - t, namePairB.first));
-				iterA++;
-				iterG++;
+				std::cout << "Pushed back " << namePairG.first - t << " : " << namePairB.first << std::endl;
+				++iterB;
+				if (std::distance(g.begin(), iterG) != g.size() - 1) {
+					++iterG;
+				}
+				
 			}
 			else if (namePairB.second > namePairG.second) {
 				iterG++;
@@ -182,14 +215,33 @@ void SerialAlgorithm::SortByT() {
 		g1.sort(SortBySecondInt);
 		for (auto pair : g) {
 			g1.push_back(pair);
+				if (std::distance(g.begin(), iterG) != g.size() -1) {
+					++iterG;
+				}
+			}
+			else if (namePairB.second > namePairA.first) {
+				++iterB;
+			}
 		}
+		
+		if (g.size() > 2) {
+			g1.sort(SortBySecondInt);
+			for (auto pair : g) {
+				g1.push_back(pair);
+			}
+			g = g1;
+		}
+		b = b1;
+		b1.clear();
 
+		a.sort(SortByFirst);
+		b.sort(SortBySecond);
 	}
 	std::cout << "----> Final Output <----" << std::endl;
-	for (auto pair : SerialAlgorithm::finalOutput) {
+	for (auto pair : finalOutput) {
 		std::cout << pair.first << " : " << pair.second << std::endl;
 	}
-	t = t * 2;
+
 
 }
 
