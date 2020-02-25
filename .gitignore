@@ -357,3 +357,5 @@ MigrationBackup/
 *.filters
 
 *.sln
+
+*.db
