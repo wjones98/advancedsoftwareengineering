@@ -6,15 +6,30 @@
 
 #include "dictionary.h"
 #include "BasketOfNames.h"
-
-
+#include <fstream>
+#include <thread>
 int main()
 {
-	std::string filepath = "C:\\Users\\wajon\\Downloads\\advancedsoftwareengineering-master\\advancedsoftwareengineering-master\\input-papers-3M.txt";
+	std::ofstream resultsFile;
+	std::list<std::string> testDataNames = { "50", "1M", "2K", "2M", "3M", "5K", "10K", "1K", "20K", "20", "50K", "100", "100K", "200", "200K", "500", "500K" };
+	std::string filepath;
+	for (int i = 0; i < 10; i++)
+	{
+		resultsFile.open("BasketAltResultsTest" + std::to_string(i) + ".csv");
+		for (auto amount : testDataNames) {
+			filepath = "C:\\Users\\wajon\\OneDrive\\Documents\\GitHub\\advancedsoftwareengineering\\TestData\\input-papers-" + amount + ".txt";
+			auto start = std::chrono::high_resolution_clock::now();
+			BasketOfNames basket(filepath);
+			basket.OrderList();
+			auto elapsed = std::chrono::high_resolution_clock::now() - start;
+			long long microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
+			std::cout << amount << " elapsed time: " << microseconds << std::endl;
+			resultsFile << amount << "," << microseconds << std::endl;
+		}
+		resultsFile.close();
+	}
 
-	BasketOfNames basket(filepath);
-	basket.OrderList();
-
+	
 	return 0;
 }
 
