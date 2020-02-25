@@ -2,21 +2,18 @@
 //
 
 #include <iostream>
+#include <chrono>
 
 #include "dictionary.h"
-#include "proj/main/BasketOfNames.h"
-#include "proj/main/BasketOfNamesAlt.h"
+#include "BasketOfNames.h"
 
-int main(std::string filepath)
+
+int main()
 {
-	//std::string filepath = "C:\\Users\\wajon\\OneDrive\\Documents\\GitHub\\advancedsoftwareengineering\\input-papers-20.txt";
+	std::string filepath = "C:\\Users\\wajon\\Downloads\\advancedsoftwareengineering-master\\advancedsoftwareengineering-master\\input-papers-3M.txt";
 
-	BasketOfNamesAlt basket(filepath);
+	BasketOfNames basket(filepath);
 	basket.OrderList();
-	
-	for (std::string i : basket.ordered) {
-		std::cout << i << std::endl;
-	}
 
 	return 0;
 }
