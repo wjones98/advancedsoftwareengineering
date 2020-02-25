@@ -40,8 +40,6 @@
 *.vcxproj.filters
 *.lastbuildstate
 *.tlog
-/Debug
-/.vs
-/main
-/proj
+.vs/
 *.vcxproj.user
+*.log
