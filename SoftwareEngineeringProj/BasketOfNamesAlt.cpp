@@ -61,3 +61,11 @@ void BasketOfNamesAlt::OrderList() {
 
 }
 
+int main(int argc, char* argv[]) {
+	BasketOfNamesAlt basket(argv[1]);
+	basket.OrderList();
+	for (auto name : basket.ordered) {
+		std::cout << name << std::endl;
+	}
+}
+

@@ -64,7 +64,7 @@ void SerialAlgorithm::GetLastNames() {
 	F1.clear();
 }
 
-void SerialAlgorithm::SortByT() {
+ void SerialAlgorithm::SortByT() {
 	while (t <= N) {
 
 		H = F;
@@ -94,9 +94,18 @@ void SerialAlgorithm::SortByT() {
 		G1.sort(SortBySecondInt);
 		G1.merge(G, SortBySecondInt);
 		G = G1;
+		G1.clear();
 		F = F1;
 		F1.clear();
 	}
 	G.sort();
-	G.unique();
 }
+
+int main(int argc, char* argv[]) {
+	 SerialAlgorithm basket(argv[1]);
+	 basket.GetLastNames();
+	 basket.SortByT();
+	 for (auto pair : basket.G) {
+		 std::cout << pair.second << std::endl;
+	 }
+ } 

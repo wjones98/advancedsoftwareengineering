@@ -217,7 +217,7 @@ namespace Containers
 		return false;
 	}
 
-
+	//Remove if higher order function, takes a function that returns a bool for a given key
 	template <class Key, class Item>
 	void Dictionary<Key, Item>::removeIf(std::function<bool(Key)> p) {
 		removeIfRec(p, this->root);

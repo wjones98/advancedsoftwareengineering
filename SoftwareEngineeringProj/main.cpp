@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+/*
 #include <chrono>
 
 #include "dictionary.h"
@@ -11,13 +12,13 @@
 int main()
 {
 	std::ofstream resultsFile;
-	std::list<std::string> testDataNames = { "50", "1M", "2K", "2M", "3M", "5K", "10K", "1K", "20K", "20", "50K", "100", "100K", "200", "200K", "500", "500K" };
+	std::list<std::string> testDataNames = { "20", "50", "100", "200", "500", "1K", "2K", "5K", "10K", "20K", "50K", "100K", "200K", "500K", "1M", "2M", "3M" };
 	std::string filepath;
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		resultsFile.open("SerialResultsTest" + std::to_string(i) + ".csv");
 		for (auto amount : testDataNames) {
-			filepath = "C:\\Users\\wajon\\OneDrive\\Documents\\GitHub\\advancedsoftwareengineering\\TestData\\input-papers-" + amount + ".txt";
+			filepath = "E:\\GitHub\\advancedsoftwareengineering\\TestData\\input-papers-" + amount + ".txt";
 			auto start = std::chrono::high_resolution_clock::now();
 			SerialAlgorithm basket(filepath);
 			basket.GetLastNames();
@@ -31,7 +32,16 @@ int main()
 	}
 	return 0;
 }
-
+*/
+#include "SerialAlgorithm2.h"
+int main(int argc, char* argv[]) {
+	SerialAlgorithm basket(argv[1]);
+	basket.GetLastNames();
+	basket.SortByT();
+	for (auto pair : basket.G) {
+		std::cout << pair.second << std::endl;
+	}
+}
 
 
 

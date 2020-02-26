@@ -15,11 +15,11 @@ public:
 
 	void GetLastNames();
 	void SortByT();
-
+	indexPairs G;
 private:
 	namePairs F;
 	namePairs H;
-	indexPairs G;
+
 
 	namePairs F1;
 	indexPairs G1;

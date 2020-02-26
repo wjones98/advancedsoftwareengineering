@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <list>
+#include <iostream>
 
 class BasketOfNamesAlt {
 public:

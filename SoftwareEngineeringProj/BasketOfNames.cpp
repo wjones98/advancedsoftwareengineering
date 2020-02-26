@@ -60,3 +60,10 @@ void BasketOfNames::OrderList() {
 
 }
 
+int main(int argc, char* argv[]) {
+	BasketOfNames basket(argv[1]);
+	basket.OrderList();
+	for (auto name : basket.ordered) {
+		std::cout << name << std::endl;
+	}
+}
