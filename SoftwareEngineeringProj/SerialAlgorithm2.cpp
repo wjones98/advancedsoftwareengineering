@@ -1,5 +1,11 @@
 #include "SerialAlgorithm2.h"
 
+bool SortByFirst(const std::pair<std::string, std::string>& first, const std::pair<std::string, std::string>& second)
+{
+	return first.first < second.first;
+}
+
+
 bool SortBySecond(const std::pair<std::string, std::string>& first, const std::pair<std::string, std::string>& second)
 {
 	return first.second < second.second;
@@ -33,69 +39,48 @@ SerialAlgorithm::SerialAlgorithm(std::string filepath) {
 
 void SerialAlgorithm::GetLastNames() {
 	H = F;
-	H.sort();
+	H.sort(SortByFirst);
 	F.sort(SortBySecond);
 
 	namePairs::iterator iterH = H.begin();
 	namePairs::iterator iterF = F.begin();
 
 	while (iterH != H.end() && iterF != F.end()) {
-		std::cout << iterH->first << " : " << iterH->second
-			<< " - " << iterF->first << " : " << iterF->second << std::endl;
-
-		if (iterH->first == iterF->second) {
-			std::cout << iterF->first << " : " << iterH->second << std::endl;
+		if (iterF->second == iterH->first) {
 			F1.push_back(std::make_pair(iterF->first, iterH->second));
-			++iterH, ++iterF;
+			++iterF, ++iterH;
+		}
+		else if (iterF->second > iterH->first) {
+			++iterH;
 		}
 		else {
-			if (std::distance(SerialAlgorithm::H.begin(), iterH) == std::distance(SerialAlgorithm::F.begin(), iterF)) {
-				std::cout << N - 1 << " : " << iterF->first << std::endl;
-				G.push_back(std::make_pair(N - 1, iterF->first));
-				std::cout << N << " : " << iterF->second << std::endl;
-				G.push_back(std::make_pair(N, iterF->second));
-				if (iterH->first > iterF->second) {
-					iterF++;
-				}
-				else {
-					iterH++;
-				}
-			}
-			else {
-				++iterH;
-			}
+			G.push_back(std::make_pair(N - 1, iterF->first));
+			G.push_back(std::make_pair(N, iterF->second));
+			++iterF;
 		}
 	}
-	std::cout << "Size of F1 " << F1.size() << " : " << "Size of N " << N << std::endl;
-	std::cout << "Size of G " << G.size() << std::endl;
+	G.sort(SortBySecondInt);
 	F = F1;
 	F1.clear();
 }
 
 void SerialAlgorithm::SortByT() {
-	std::cout << "------------------------------------------------------" << std::endl;
 	while (t <= N) {
 
 		H = F;
-		H.sort();
+		H.sort(SortByFirst);
 		F.sort(SortBySecond);
 
 		namePairs::iterator iterH = H.begin();
 		namePairs::iterator iterF = F.begin();
 		indexPairs::iterator iterG = G.begin();
 		t = t * 2;
-		std::cout << t << std::endl;
 		while (iterF != F.end()) {
-			std::cout << iterH->first << " : " << iterH->second
-				<< " - " << iterF->first << " : " << iterF->second << std::endl;
-
 			if (iterF->second == iterH->first) {
-				std::cout << iterF->first << " : " << iterH->second << std::endl;
 				F1.push_back(std::make_pair(iterF->first, iterH->second));
 				++iterF, ++iterH;
 			}
 			else if (iterG != G.end() && iterF->second == iterG->second) {
-				std::cout << iterG->first - t << " : " << iterF->first << std::endl;
 				G1.push_back(std::make_pair(iterG->first - t, iterF->first));
 				++iterF, ++iterG;
 			}
@@ -106,18 +91,12 @@ void SerialAlgorithm::SortByT() {
 				++iterH;
 			}
 		}
-		std::cout << "------------------------------------------------------" << std::endl;
 		G1.sort(SortBySecondInt);
 		G1.merge(G, SortBySecondInt);
 		G = G1;
 		F = F1;
 		F1.clear();
-		std::cout << G.size() << std::endl;
 	}
-	std::cout << "------------------------------------------------------" << std::endl;
 	G.sort();
 	G.unique();
-	for (auto pair : G) {
-		std::cout << pair.first << " : " << pair.second << std::endl;
-	}
 }

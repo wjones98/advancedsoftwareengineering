@@ -5,7 +5,7 @@
 #include <chrono>
 
 #include "dictionary.h"
-#include "BasketOfNames.h"
+#include "SerialAlgorithm2.h"
 #include <fstream>
 #include <thread>
 int main()
@@ -13,14 +13,15 @@ int main()
 	std::ofstream resultsFile;
 	std::list<std::string> testDataNames = { "50", "1M", "2K", "2M", "3M", "5K", "10K", "1K", "20K", "20", "50K", "100", "100K", "200", "200K", "500", "500K" };
 	std::string filepath;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 1; i++)
 	{
-		resultsFile.open("BasketAltResultsTest" + std::to_string(i) + ".csv");
+		resultsFile.open("SerialResultsTest" + std::to_string(i) + ".csv");
 		for (auto amount : testDataNames) {
 			filepath = "C:\\Users\\wajon\\OneDrive\\Documents\\GitHub\\advancedsoftwareengineering\\TestData\\input-papers-" + amount + ".txt";
 			auto start = std::chrono::high_resolution_clock::now();
-			BasketOfNames basket(filepath);
-			basket.OrderList();
+			SerialAlgorithm basket(filepath);
+			basket.GetLastNames();
+			basket.SortByT();
 			auto elapsed = std::chrono::high_resolution_clock::now() - start;
 			long long microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
 			std::cout << amount << " elapsed time: " << microseconds << std::endl;
@@ -28,8 +29,6 @@ int main()
 		}
 		resultsFile.close();
 	}
-
-	
 	return 0;
 }
 

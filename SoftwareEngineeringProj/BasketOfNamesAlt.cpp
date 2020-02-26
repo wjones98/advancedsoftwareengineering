@@ -25,27 +25,39 @@ BasketOfNamesAlt::BasketOfNamesAlt(std::string filepath) {
 }
 
 void BasketOfNamesAlt::OrderList() {
+
+
 	std::string firstName = namesWest.begin()->first;
+
 	ordered.push_back(firstName);
+	std::map<std::string, std::string>::iterator iterW = namesWest.begin();
+	std::map<std::string, std::string>::iterator iterE = namesEast.begin();
+	std::string Westcurrent = firstName;
+	std::string Eastcurrent = firstName;
+	std::string value;
 
-	std::string current = firstName;
-
-	for (int i = 0; i < namesWest.size(); i++) {
-		if (!namesWest[current].empty()) {
-			std::string value = namesWest[current];
-			BasketOfNamesAlt::ordered.push_back(value);
-			current = value;
+	bool foundWesterly = false;
+	bool foundEasterly = false;
+	while (foundWesterly == false || foundEasterly == false) {
+		if (!namesWest[Westcurrent].empty()) {
+			value = namesWest[Westcurrent];
+			ordered.push_back(value);
+			Westcurrent = value;
+			iterW++;
+		}
+		else {
+			foundWesterly = true;
+		}
+		if (!namesEast[Eastcurrent].empty()) {
+			value = namesEast[Eastcurrent];
+			ordered.push_front(value);
+			Eastcurrent = value;
+			iterE++;
+		}
+		else {
+			foundEasterly = true;
 		}
 	}
 
-	current = firstName;
-
-	for (int i = 0; i < namesEast.size(); i++) {
-		if (!namesEast[current].empty()) {
-			std::string value = namesEast[current];
-			BasketOfNamesAlt::ordered.push_front(value);
-			current = value;
-		}
-	}
 }
 
